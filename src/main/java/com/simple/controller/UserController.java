@@ -28,7 +28,7 @@ public class UserController {
     public ServerResponse<User> login(String username, String password, HttpSession session) {
         ServerResponse<User> response = iUserService.login(username, password);
         if (response.isSuccess()) {
-            session.setAttribute(Const.CURRENT_USER, response.getDate());
+            session.setAttribute(Const.CURRENT_USER, response.getData());
         }
         return response;
     }
@@ -50,6 +50,26 @@ public class UserController {
         if (user == null) {
             return ServerResponse.createByError("用户未登陆");
         }
-        return iUserService.resetPassword(newPassword,oldPassword,user);
+        return iUserService.resetPassword(newPassword, oldPassword, user);
     }
+
+    @RequestMapping(value = "update_information.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<User> updateInformation(HttpSession session, User user) {
+        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+        if (currentUser == null) {
+            return ServerResponse.createByError("用户未登录，无法更新信息");
+        }
+        user.setId(currentUser.getId());
+        user.setUsername(currentUser.getUsername());
+        ServerResponse<User> response = iUserService.updateInformation(user);
+        if (response.isSuccess()) {
+            response.getData().setUsername(currentUser.getUsername());
+            session.setAttribute(Const.CURRENT_USER, response.getData());
+        }
+        return response;
+    }
+
+    // TODO: 忘记密码
+
 }

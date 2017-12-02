@@ -35,8 +35,8 @@
                                  update_time)
         VALUES (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
                 #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{question,jdbcType=VARCHAR},
-                #{answer,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
-                #{updateTime,jdbcType=TIMESTAMP})
+                #{answer,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, now(),
+                now())
     </insert>
     <insert id="insertSelective" parameterType="com.simple.pojo.User">
         insert into simple_user
@@ -66,10 +66,10 @@
                 role,
             </if>
             <if test="createTime != null">
-                create_time,
+                now(),
             </if>
             <if test="updateTime != null">
-                update_time,
+                now(),
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -101,7 +101,7 @@
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
+                now(),
             </if>
         </trim>
     </insert>
@@ -133,7 +133,7 @@
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
+                now(),
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
@@ -148,7 +148,7 @@
             answer      = #{answer,jdbcType=VARCHAR},
             role        = #{role,jdbcType=INTEGER},
             create_time = #{createTime,jdbcType=TIMESTAMP},
-            update_time = #{updateTime,jdbcType=TIMESTAMP}
+            update_time = now()
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
 
@@ -170,6 +170,13 @@
         SELECT count(1)
         FROM simple_user
         WHERE password = #{password} AND id = #{userId}
+    </select>
+
+    <select id="checkEmailByUserId" parameterType="map" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM simple_user
+        WHERE email = #{email} AND id = #{userId}
+
     </select>
 
 </mapper>
