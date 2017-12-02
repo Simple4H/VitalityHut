@@ -9,4 +9,6 @@ import com.simple.pojo.User;
 public interface IUserService {
 
     ServerResponse<User> login(String username, String password);
+
+    ServerResponse<String> resetPassword(String newPassword, String oldPassword, User user);
 }

@@ -32,4 +32,24 @@ public class UserController {
         }
         return response;
     }
+
+    @RequestMapping(value = "get_user_info.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<User> getUserInfo(HttpSession session) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user != null) {
+            return ServerResponse.createBySuccess(user);
+        }
+        return ServerResponse.createByError("用户未登录,无法获取当前用户的信息");
+    }
+
+    @RequestMapping(value = "reset_password.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<String> resetPassword(HttpSession session, String newPassword, String oldPassword) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByError("用户未登陆");
+        }
+        return iUserService.resetPassword(newPassword,oldPassword,user);
+    }
 }
