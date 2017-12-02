@@ -68,3 +68,5 @@ CREATE TABLE `simple_group` (
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8;
 
+insert into simple_user VALUES(NULL,'simple','123123','crescentcxm@gmail.com','18578230461','没有bug','是的',1,'2017-12-02 12:07:00', '2017-12-02 12:07:01');
+
