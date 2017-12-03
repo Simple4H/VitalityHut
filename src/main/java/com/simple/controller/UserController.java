@@ -4,6 +4,7 @@ import com.simple.common.Const;
 import com.simple.common.ServerResponse;
 import com.simple.pojo.User;
 import com.simple.service.IUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,7 @@ public class UserController {
     public ServerResponse<User> getUserInfo(HttpSession session) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user != null) {
+            user.setPassword(StringUtils.EMPTY);
             return ServerResponse.createBySuccess(user);
         }
         return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
@@ -80,7 +82,7 @@ public class UserController {
 
     @RequestMapping(value = "forget_reset_password.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> forgetRestPassword(String username, String passwordNew, String forgetToken) {
-        return iUserService.forgetResetPassword(username, passwordNew, forgetToken);
+    public ServerResponse<String> forgetRestPassword(String username, String NewPassword, String forgetToken) {
+        return iUserService.forgetResetPassword(username, NewPassword, forgetToken);
     }
 }

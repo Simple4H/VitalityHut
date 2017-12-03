@@ -190,9 +190,8 @@
 
     <update id="updatePasswordByUsername" parameterType="map">
         UPDATE simple_user
-        SET password = #{newPassword}
-        WHERE
-            username = #{username}
+        SET password = #{newPassword}, update_time = now()
+        WHERE username = #{username}
     </update>
 
     <select id="checkEmail" parameterType="string" resultType="java.lang.Integer">

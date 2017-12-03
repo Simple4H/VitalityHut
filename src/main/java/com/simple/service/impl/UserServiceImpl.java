@@ -32,6 +32,7 @@ public class UserServiceImpl implements IUserService {
         if (user == null) {
             return ServerResponse.createByErrorMessage("密码错误");
         }
+        user.setPassword(StringUtils.EMPTY);
         return ServerResponse.createBySuccess("登录成功", user);
     }
 
@@ -68,6 +69,28 @@ public class UserServiceImpl implements IUserService {
         } else {
             return ServerResponse.createByErrorMessage("更新失败");
         }
+    }
+
+    //检验用户名和邮箱的
+    private ServerResponse<String> checkValid(String str, String type) {
+        if (org.apache.commons.lang3.StringUtils.isNotBlank(type)) {
+            //开始校验
+            if (Const.USERNAME.equals(type)) {
+                int resultCount = userMapper.checkUsername(str);
+                if (resultCount > 0) {
+                    return ServerResponse.createByErrorMessage("用户名已存在");
+                }
+            }
+            if (Const.EMAIL.equals(type)) {
+                int resultCount = userMapper.checkEmail(str);
+                if (resultCount > 0) {
+                    return ServerResponse.createByErrorMessage("email已存在");
+                }
+            }
+        } else {
+            return ServerResponse.createByErrorMessage("参数错误");
+        }
+        return ServerResponse.createBySuccessMessage("校验成功");
     }
 
     //忘记密码
@@ -107,25 +130,5 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("修改密码失败");
     }
 
-    //检验用户名和邮箱的
-    private ServerResponse<String> checkValid(String str, String type) {
-        if (org.apache.commons.lang3.StringUtils.isNotBlank(type)) {
-            //开始校验
-            if (Const.USERNAME.equals(type)) {
-                int resultCount = userMapper.checkUsername(str);
-                if (resultCount > 0) {
-                    return ServerResponse.createByErrorMessage("用户名已存在");
-                }
-            }
-            if (Const.EMAIL.equals(type)) {
-                int resultCount = userMapper.checkEmail(str);
-                if (resultCount > 0) {
-                    return ServerResponse.createByErrorMessage("email已存在");
-                }
-            }
-        } else {
-            return ServerResponse.createByErrorMessage("参数错误");
-        }
-        return ServerResponse.createBySuccessMessage("校验成功");
-    }
+
 }
