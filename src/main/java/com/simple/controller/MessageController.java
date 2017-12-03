@@ -1,5 +1,6 @@
 package com.simple.controller;
 
+import com.simple.common.ServerResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,4 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/message/")
 @Controller
 public class MessageController {
+
+    public ServerResponse<String> insertMessage(String title,String message) {
+        return null;
+    }
 }
