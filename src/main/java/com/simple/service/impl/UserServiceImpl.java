@@ -73,7 +73,7 @@ public class UserServiceImpl implements IUserService {
 
     //检验用户名和邮箱的
     private ServerResponse<String> checkValid(String str, String type) {
-        if (org.apache.commons.lang3.StringUtils.isNotBlank(type)) {
+        if (StringUtils.isNotBlank(type)) {
             //开始校验
             if (Const.USERNAME.equals(type)) {
                 int resultCount = userMapper.checkUsername(str);
@@ -95,6 +95,10 @@ public class UserServiceImpl implements IUserService {
 
     //忘记密码
     public ServerResponse<String> checkAnswer(String username, String question, String answer) {
+        int usernameCount = userMapper.checkUsername(username);
+        if (usernameCount == 0) {
+            return ServerResponse.createByErrorMessage("用户名不存在");
+        }
         int resultCount = userMapper.checkQuestionAndAnswer(username, question, answer);
         if (resultCount > 0) {
             //说明问题及问题答案是这个用户的,并且是正确的
@@ -102,7 +106,7 @@ public class UserServiceImpl implements IUserService {
             TokenCache.setKey(TokenCache.TOKEN_PREFIX + username, forgetToken);
             return ServerResponse.createBySuccess(forgetToken);
         }
-        return ServerResponse.createByErrorMessage("问题的答案错误");
+        return ServerResponse.createByErrorMessage("问题或答案错误");
     }
 
     public ServerResponse<String> forgetResetPassword(String username, String NewPassword, String forgetToken) {
