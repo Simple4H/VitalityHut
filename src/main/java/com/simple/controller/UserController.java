@@ -40,7 +40,7 @@ public class UserController {
         if (user != null) {
             return ServerResponse.createBySuccess(user);
         }
-        return ServerResponse.createByError("用户未登录,无法获取当前用户的信息");
+        return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
     }
 
     @RequestMapping(value = "reset_password.do", method = RequestMethod.POST)
@@ -48,7 +48,7 @@ public class UserController {
     public ServerResponse<String> resetPassword(HttpSession session, String newPassword, String oldPassword) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
-            return ServerResponse.createByError("用户未登陆");
+            return ServerResponse.createByErrorMessage("用户未登陆");
         }
         return iUserService.resetPassword(newPassword, oldPassword, user);
     }
@@ -58,7 +58,7 @@ public class UserController {
     public ServerResponse<User> updateInformation(HttpSession session, User user) {
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
-            return ServerResponse.createByError("用户未登录，无法更新信息");
+            return ServerResponse.createByErrorMessage("用户未登录，无法更新信息");
         }
         user.setId(currentUser.getId());
         user.setUsername(currentUser.getUsername());
@@ -71,16 +71,16 @@ public class UserController {
         return response;
     }
 
-
     @RequestMapping(value = "forget_check_answer.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetCheckAnswer(String username, String question, String answer) {
         return iUserService.checkAnswer(username, question, answer);
     }
 
+
     @RequestMapping(value = "forget_reset_password.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> forgetResetPassword(String username, String newPassword, String forgetToken) {
-        return iUserService.forgetResetPassword(username, newPassword, forgetToken);
+    public ServerResponse<String> forgetRestPassword(String username, String passwordNew, String forgetToken) {
+        return iUserService.forgetResetPassword(username, passwordNew, forgetToken);
     }
 }
