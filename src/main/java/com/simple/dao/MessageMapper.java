@@ -1,8 +1,12 @@
 package com.simple.dao;
 
 import com.simple.pojo.Message;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface MessageMapper {
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(Message record);
@@ -14,4 +18,8 @@ public interface MessageMapper {
     int updateByPrimaryKeySelective(Message record);
 
     int updateByPrimaryKey(Message record);
+
+    int insertNewNotice(@Param("title")String title,@Param("message")String message);
+
+    List<Message> finalAll();
 }

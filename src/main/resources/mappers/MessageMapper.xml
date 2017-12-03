@@ -27,7 +27,7 @@
         INSERT INTO simple_message (id, title, messges,
                                     create_time, update_time)
         VALUES (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{messges,jdbcType=VARCHAR},
-                #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+                now(), now())
     </insert>
     <insert id="insertSelective" parameterType="com.simple.pojo.Message">
         insert into simple_message
@@ -62,7 +62,7 @@
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
+                now(),
             </if>
         </trim>
     </insert>
@@ -76,10 +76,10 @@
                 messges = #{messges,jdbcType=VARCHAR},
             </if>
             <if test="createTime != null">
-                create_time = #{createTime,jdbcType=TIMESTAMP},
+                create_time = now(),
             </if>
             <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
+                update_time = now(),
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
@@ -92,4 +92,15 @@
             update_time = #{updateTime,jdbcType=TIMESTAMP}
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
+
+    <insert id="insertNewNotice" parameterType="map">
+        INSERT INTO simple_message (title, messges, create_time, update_time) VALUES
+            (#{title}, #{message}, now(), now())
+    </insert>
+
+    <select id="finalAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM simple_message
+    </select>
 </mapper>
