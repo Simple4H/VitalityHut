@@ -36,6 +36,8 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createBySuccess("登录成功", user);
     }
 
+    // TODO: 注册接口
+
     //登录状态下重置密码
     public ServerResponse<String> resetPassword(String newPassword, String oldPassword, User user) {
         int resultCount = userMapper.checkPassword(oldPassword, user.getId());
