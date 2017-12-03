@@ -169,14 +169,31 @@
     <select id="checkPassword" parameterType="map" resultType="java.lang.Integer">
         SELECT count(1)
         FROM simple_user
-        WHERE password = #{password} AND id = #{userId}
+        WHERE password = #{password}
+              AND id = #{userId}
     </select>
 
     <select id="checkEmailByUserId" parameterType="map" resultType="java.lang.Integer">
         SELECT count(1)
         FROM simple_user
-        WHERE email = #{email} AND id = #{userId}
-
+        WHERE email = #{email}
+              AND id = #{userId}
     </select>
+
+    <select id="checkQuestionAndAnswer" parameterType="map" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM simple_user
+        WHERE username = #{username}
+              AND question = #{question}
+              AND answer = #{answer}
+    </select>
+
+    <update id="updatePasswordByUsername" parameterType="map">
+        UPDATE simple_user
+        SET password = #{newPassword}
+        WHERE
+            username = #{username}
+    </update>
+
 
 </mapper>
