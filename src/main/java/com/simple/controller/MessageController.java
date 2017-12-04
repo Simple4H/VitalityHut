@@ -55,7 +55,7 @@ public class MessageController {
         }
         int resultCount = userMapper.checkAdmin(currentUser.getUsername());
         System.out.println(resultCount);
-        if (resultCount != Const.Role.ROLE_ADMIN){
+        if (resultCount != Const.Role.ROLE_ADMIN) {
             return ServerResponse.createByErrorMessage("不是管理员无法删除");
         }
         return iMessageService.deleteNote(title);

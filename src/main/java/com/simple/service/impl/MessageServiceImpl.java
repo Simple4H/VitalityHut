@@ -30,7 +30,7 @@ public class MessageServiceImpl implements IMessageService {
             Message resultMessage = new Message();
             resultMessage.setTitle(title);
             resultMessage.setMessges(message);
-            return ServerResponse.createBySuccess("插入成功",resultMessage);
+            return ServerResponse.createBySuccess("插入成功", resultMessage);
         }
         return ServerResponse.createByErrorMessage("插入失败");
     }

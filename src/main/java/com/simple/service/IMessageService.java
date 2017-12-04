@@ -10,8 +10,6 @@ import com.simple.pojo.Message;
  */
 public interface IMessageService {
 
-//    ServerResponse<String> createNewNotice(String title, String message, String username);
-
     ServerResponse<Message> createNewNotice(String title, String message, String username);
 
     ServerResponse<PageInfo> getMessageList(int pageNum, int pageSize);
