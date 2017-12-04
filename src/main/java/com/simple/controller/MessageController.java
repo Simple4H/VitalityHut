@@ -40,7 +40,7 @@ public class MessageController {
         return iMessageService.createNewNotice(title, message, currentUser.getUsername());
     }
 
-    @RequestMapping(value = "get_list", method = RequestMethod.POST)
+    @RequestMapping(value = "get_list.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<PageInfo> getList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
         return iMessageService.getMessageList(pageNum, pageSize);
