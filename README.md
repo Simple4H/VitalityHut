@@ -17,7 +17,6 @@ _用户模块_
 /user/forget_reset_password.do      输入Token重置密码
 
 
-
 _信息模块_
 
 /message/create.do                  创建新的通知             
