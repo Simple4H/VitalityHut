@@ -2,6 +2,7 @@ package com.simple.service;
 
 import com.github.pagehelper.PageInfo;
 import com.simple.common.ServerResponse;
+import com.simple.pojo.Message;
 
 
 /**
@@ -9,7 +10,9 @@ import com.simple.common.ServerResponse;
  */
 public interface IMessageService {
 
-    ServerResponse<String> createNewNotice(String title, String message, String username);
+//    ServerResponse<String> createNewNotice(String title, String message, String username);
+
+    ServerResponse<Message> createNewNotice(String title, String message, String username);
 
     ServerResponse<PageInfo> getMessageList(int pageNum, int pageSize);
 

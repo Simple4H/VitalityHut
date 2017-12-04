@@ -37,13 +37,12 @@ public class MessageController {
         if (currentUser == null) {
             return ServerResponse.createByErrorMessage("没有登录，无法创建新的通知");
         }
-        ServerResponse response = iMessageService.createNewNotice(title, message, currentUser.getUsername());
-        return response;
+        return iMessageService.createNewNotice(title, message, currentUser.getUsername());
     }
 
     @RequestMapping(value = "get_list", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<PageInfo> getList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "3") int pageSize) {
+    public ServerResponse<PageInfo> getList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
         return iMessageService.getMessageList(pageNum, pageSize);
     }
 
