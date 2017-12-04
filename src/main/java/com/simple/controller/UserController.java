@@ -5,7 +5,6 @@ import com.simple.common.ServerResponse;
 import com.simple.pojo.User;
 import com.simple.service.IUserService;
 import org.apache.commons.lang3.StringUtils;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
