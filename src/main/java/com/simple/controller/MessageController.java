@@ -32,7 +32,6 @@ public class MessageController {
 
     @RequestMapping(value = "create.do", method = RequestMethod.POST)
     @ResponseBody
-    // TODO: 绑定登录者信息
     public ServerResponse createNewNotice(String title, String message, HttpSession session) {
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
@@ -50,7 +49,6 @@ public class MessageController {
 
     @RequestMapping(value = "delete_note.do", method = RequestMethod.POST)
     @ResponseBody
-    // TODO: 管理员才能删除
     public ServerResponse<String> deleteNote(String title, HttpSession session) {
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
