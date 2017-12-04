@@ -20,8 +20,12 @@ public class MessageServiceImpl implements IMessageService {
     @Autowired
     private MessageMapper messageMapper;
 
-    public ServerResponse<String> createNewNotice(String title, String message) {
-        int resultCount = messageMapper.insertNewNotice(title, message);
+    public ServerResponse<String> createNewNotice(String title, String message, String username) {
+        int titleCount = messageMapper.checkTitle(title);
+        if (titleCount > 0) {
+            return ServerResponse.createByErrorMessage("标题已经存在");
+        }
+        int resultCount = messageMapper.insertNewNotice(title, message, username);
         if (resultCount > 0) {
             return ServerResponse.createBySuccessMessage("插入成功");
         }
@@ -36,6 +40,14 @@ public class MessageServiceImpl implements IMessageService {
             return ServerResponse.createByErrorMessage("查询失败");
         }
         return ServerResponse.createBySuccess(resultPage);
+    }
+
+    public ServerResponse<String> deleteNote(String title) {
+        int deleteCount = messageMapper.deleteNote(title);
+        if (deleteCount > 0) {
+            return ServerResponse.createBySuccess("删除消息成功");
+        }
+        return ServerResponse.createByErrorMessage("删除消息失败");
     }
 
 

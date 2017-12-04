@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface MessageMapper {
-
     int deleteByPrimaryKey(Integer id);
 
     int insert(Message record);
@@ -19,7 +18,11 @@ public interface MessageMapper {
 
     int updateByPrimaryKey(Message record);
 
-    int insertNewNotice(@Param("title")String title,@Param("message")String message);
+    int checkTitle(String title);
+
+    int insertNewNotice(@Param("title") String title, @Param("message") String message, @Param("author") String author);
 
     List<Message> finalAll();
+
+    int deleteNote(String title);
 }

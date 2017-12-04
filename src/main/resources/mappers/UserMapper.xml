@@ -98,7 +98,7 @@
                 #{role,jdbcType=INTEGER},
             </if>
             <if test="createTime != null">
-                #{createTime,jdbcType=TIMESTAMP},
+                now(),
             </if>
             <if test="updateTime != null">
                 now(),
@@ -130,7 +130,7 @@
                 role = #{role,jdbcType=INTEGER},
             </if>
             <if test="createTime != null">
-                create_time = #{createTime,jdbcType=TIMESTAMP},
+                now(),
             </if>
             <if test="updateTime != null">
                 now(),
@@ -148,10 +148,9 @@
             answer      = #{answer,jdbcType=VARCHAR},
             role        = #{role,jdbcType=INTEGER},
             create_time = #{createTime,jdbcType=TIMESTAMP},
-            update_time = now()
+            update_time = #{updateTime,jdbcType=TIMESTAMP}
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
-
     <select id="checkUsername" resultType="java.lang.Integer" parameterType="string">
         SELECT count(1)
         FROM simple_user
@@ -200,5 +199,9 @@
         WHERE email = #{email}
     </select>
 
-
+    <select id="checkAdmin" parameterType="string" resultType="java.lang.Integer">
+        SELECT role
+        FROM simple_user
+        WHERE username = #{username}
+    </select>
 </mapper>

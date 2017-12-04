@@ -9,14 +9,17 @@ public class Message {
 
     private String messges;
 
+    private String anthor;
+
     private Date createTime;
 
     private Date updateTime;
 
-    public Message(Integer id, String title, String messges, Date createTime, Date updateTime) {
+    public Message(Integer id, String title, String messges, String anthor, Date createTime, Date updateTime) {
         this.id = id;
         this.title = title;
         this.messges = messges;
+        this.anthor = anthor;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
@@ -47,6 +50,14 @@ public class Message {
 
     public void setMessges(String messges) {
         this.messges = messges == null ? null : messges.trim();
+    }
+
+    public String getAnthor() {
+        return anthor;
+    }
+
+    public void setAnthor(String anthor) {
+        this.anthor = anthor == null ? null : anthor.trim();
     }
 
     public Date getCreateTime() {

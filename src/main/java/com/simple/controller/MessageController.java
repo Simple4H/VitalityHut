@@ -1,7 +1,10 @@
 package com.simple.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.simple.common.Const;
 import com.simple.common.ServerResponse;
+import com.simple.dao.UserMapper;
+import com.simple.pojo.User;
 import com.simple.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -21,10 +26,19 @@ public class MessageController {
     @Autowired
     private IMessageService iMessageService;
 
+    @Autowired
+    private UserMapper userMapper;
+
+
     @RequestMapping(value = "create.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> createNewNotice(String title, String message) {
-        ServerResponse response = iMessageService.createNewNotice(title, message);
+    // TODO: 绑定登录者信息
+    public ServerResponse createNewNotice(String title, String message, HttpSession session) {
+        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+        if (currentUser == null) {
+            return ServerResponse.createByErrorMessage("没有登录，无法创建新的通知");
+        }
+        ServerResponse response = iMessageService.createNewNotice(title, message, currentUser.getUsername());
         return response;
     }
 
@@ -32,5 +46,21 @@ public class MessageController {
     @ResponseBody
     public ServerResponse<PageInfo> getList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "3") int pageSize) {
         return iMessageService.getMessageList(pageNum, pageSize);
+    }
+
+    @RequestMapping(value = "delete_note.do", method = RequestMethod.POST)
+    @ResponseBody
+    // TODO: 管理员才能删除
+    public ServerResponse<String> deleteNote(String title, HttpSession session) {
+        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+        if (currentUser == null) {
+            return ServerResponse.createByErrorMessage("没有登录，无法删除");
+        }
+        int resultCount = userMapper.checkAdmin(currentUser.getUsername());
+        System.out.println(resultCount);
+        if (resultCount != Const.Role.ROLE_ADMIN){
+            return ServerResponse.createByErrorMessage("不是管理员无法删除");
+        }
+        return iMessageService.deleteNote(title);
     }
 }

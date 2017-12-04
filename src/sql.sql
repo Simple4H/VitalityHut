@@ -37,6 +37,8 @@ CREATE TABLE `simple_message` (
   COMMENT '标题',
   `messges`     VARCHAR(1000) NOT NULL
   COMMENT '消息',
+  `anthor`      VARCHAR(100)  NOT NULL
+  COMMENT '作者',
   `create_time` DATETIME      NOT NULL
   COMMENT '创建时间',
   `update_time` DATETIME      NOT NULL
@@ -69,4 +71,5 @@ CREATE TABLE `simple_group` (
   DEFAULT CHARSET = utf8;
 
 insert into simple_user VALUES(NULL,'simple','123123','crescentcxm@gmail.com','18578230461','没有bug','是的',1,'2017-12-02 12:07:00', '2017-12-02 12:07:01');
+insert into simple_user VALUES(NULL,'huangbude','123123','673724357@gmail.com','18666981323','好不好','好',0,'2017-12-02 12:07:00', '2017-12-02 12:07:01');
 

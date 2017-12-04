@@ -9,8 +9,10 @@ import com.simple.common.ServerResponse;
  */
 public interface IMessageService {
 
-    ServerResponse<String> createNewNotice(String title, String message);
+    ServerResponse<String> createNewNotice(String title, String message, String username);
 
     ServerResponse<PageInfo> getMessageList(int pageNum, int pageSize);
+
+    ServerResponse<String> deleteNote(String title);
 
 }

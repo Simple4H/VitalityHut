@@ -1056,34 +1056,41 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="264" parent="250" name="create_time">
+    <column id="264" parent="250" name="anthor">
       <Position>4</Position>
+      <Comment>作者</Comment>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="265" parent="250" name="create_time">
+      <Position>5</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="265" parent="250" name="update_time">
-      <Position>5</Position>
+    <column id="266" parent="250" name="update_time">
+      <Position>6</Position>
       <Comment>最后一次更新时间</Comment>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="266" parent="250" name="title_unique">
+    <index id="267" parent="250" name="title_unique">
       <ColNames>title</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="267" parent="250" name="PRIMARY">
+    <key id="268" parent="250" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="268" parent="250" name="title_unique">
+    <key id="269" parent="250" name="title_unique">
       <ColNames>title</ColNames>
       <UnderlyingIndexName>title_unique</UnderlyingIndexName>
     </key>
-    <column id="269" parent="251" name="id">
+    <column id="270" parent="251" name="id">
       <Position>1</Position>
       <Comment>用户表id</Comment>
       <DataType>int(11)|0</DataType>
@@ -1091,75 +1098,75 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="270" parent="251" name="username">
+    <column id="271" parent="251" name="username">
       <Position>2</Position>
       <Comment>用户名</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="271" parent="251" name="password">
+    <column id="272" parent="251" name="password">
       <Position>3</Position>
       <Comment>用户密码</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="272" parent="251" name="email">
+    <column id="273" parent="251" name="email">
       <Position>4</Position>
       <Comment>邮箱</Comment>
       <DataType>varchar(50)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="273" parent="251" name="phone">
+    <column id="274" parent="251" name="phone">
       <Position>5</Position>
       <Comment>手机</Comment>
       <DataType>varchar(20)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="274" parent="251" name="question">
+    <column id="275" parent="251" name="question">
       <Position>6</Position>
       <Comment>找回密码问题</Comment>
       <DataType>varchar(100)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="275" parent="251" name="answer">
+    <column id="276" parent="251" name="answer">
       <Position>7</Position>
       <Comment>找回密码答案</Comment>
       <DataType>varchar(100)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="276" parent="251" name="role">
+    <column id="277" parent="251" name="role">
       <Position>8</Position>
       <Comment>角色0-管理员,1-普通用户</Comment>
       <DataType>int(4)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="277" parent="251" name="create_time">
+    <column id="278" parent="251" name="create_time">
       <Position>9</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="278" parent="251" name="update_time">
+    <column id="279" parent="251" name="update_time">
       <Position>10</Position>
       <Comment>最后一次更新时间</Comment>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="279" parent="251" name="user_name_unique">
+    <index id="280" parent="251" name="user_name_unique">
       <ColNames>username</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="280" parent="251" name="PRIMARY">
+    <key id="281" parent="251" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="281" parent="251" name="user_name_unique">
+    <key id="282" parent="251" name="user_name_unique">
       <ColNames>username</ColNames>
       <UnderlyingIndexName>user_name_unique</UnderlyingIndexName>
     </key>

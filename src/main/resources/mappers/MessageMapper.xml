@@ -6,12 +6,13 @@
             <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="messges" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="anthor" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
             <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-        id, title, messges, create_time, update_time
+        id, title, messges, anthor, create_time, update_time
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -25,9 +26,11 @@
     </delete>
     <insert id="insert" parameterType="com.simple.pojo.Message">
         INSERT INTO simple_message (id, title, messges,
-                                    create_time, update_time)
+                                    anthor, create_time, update_time
+        )
         VALUES (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{messges,jdbcType=VARCHAR},
-                now(), now())
+                #{anthor,jdbcType=VARCHAR}, now(), now()
+        )
     </insert>
     <insert id="insertSelective" parameterType="com.simple.pojo.Message">
         insert into simple_message
@@ -41,11 +44,14 @@
             <if test="messges != null">
                 messges,
             </if>
+            <if test="anthor != null">
+                anthor,
+            </if>
             <if test="createTime != null">
-                create_time,
+                now(),
             </if>
             <if test="updateTime != null">
-                update_time,
+                now(),
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -58,8 +64,11 @@
             <if test="messges != null">
                 #{messges,jdbcType=VARCHAR},
             </if>
+            <if test="anthor != null">
+                #{anthor,jdbcType=VARCHAR},
+            </if>
             <if test="createTime != null">
-                #{createTime,jdbcType=TIMESTAMP},
+                now(),
             </if>
             <if test="updateTime != null">
                 now(),
@@ -75,11 +84,14 @@
             <if test="messges != null">
                 messges = #{messges,jdbcType=VARCHAR},
             </if>
+            <if test="anthor != null">
+                anthor = #{anthor,jdbcType=VARCHAR},
+            </if>
             <if test="createTime != null">
-                create_time = now(),
+                create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="updateTime != null">
-                update_time = now(),
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
@@ -88,14 +100,20 @@
         UPDATE simple_message
         SET title       = #{title,jdbcType=VARCHAR},
             messges     = #{messges,jdbcType=VARCHAR},
-            create_time = #{createTime,jdbcType=TIMESTAMP},
-            update_time = #{updateTime,jdbcType=TIMESTAMP}
+            anthor      = #{anthor,jdbcType=VARCHAR},
+            create_time = now(),
+            update_time = now()
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
+    <select id="checkTitle" resultType="java.lang.Integer" parameterType="string">
+        SELECT count(1)
+        FROM simple_message
+        WHERE title = #{title}
+    </select>
 
     <insert id="insertNewNotice" parameterType="map">
-        INSERT INTO simple_message (title, messges, create_time, update_time) VALUES
-            (#{title}, #{message}, now(), now())
+        INSERT INTO simple_message (title, messges, anthor, create_time, update_time) VALUES
+            (#{title}, #{message}, #{author}, now(), now())
     </insert>
 
     <select id="finalAll" resultMap="BaseResultMap">
@@ -103,4 +121,9 @@
         <include refid="Base_Column_List"/>
         FROM simple_message
     </select>
+
+    <delete id="deleteNote" parameterType="string">
+        DELETE FROM simple_message
+        WHERE title = #{title}
+    </delete>
 </mapper>
