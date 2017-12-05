@@ -8,8 +8,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Create by S I M P L E on 2017/12/02
@@ -90,5 +94,32 @@ public class UserController {
     @ResponseBody
     public ServerResponse<String> getQuestionInformation(String username) {
         return iUserService.getQuestionInformation(username);
+    }
+
+    @RequestMapping(value = "upload.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<String> upload(@RequestParam("upload_file") MultipartFile file) {
+        if (!file.isEmpty()) {
+            try {
+                // 文件存放服务端的位置
+                String rootPath = "f:/VitalityHut";
+                File dir = new File(rootPath + File.separator + "file");
+                if (!dir.exists())
+                    dir.mkdirs();
+                //重新命名上传文件的名字
+                Date now = new Date();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+                String nowTime = simpleDateFormat.format(now);
+                String rename = nowTime + "_" + file.getOriginalFilename();
+                File serverFile = new File(dir.getAbsolutePath() + File.separator + rename);
+                // 写文件到服务器
+                file.transferTo(serverFile);
+                return ServerResponse.createBySuccessMessage("成功上传" + file.getOriginalFilename());
+            } catch (Exception e) {
+                return ServerResponse.createByErrorMessage("失败上传 " + file.getOriginalFilename() + " => " + e.getMessage());
+            }
+        } else {
+            return ServerResponse.createByErrorMessage("失败上传 " + file.getOriginalFilename() + " 是空的");
+        }
     }
 }

@@ -6,7 +6,7 @@ package com.simple.common;
 public enum ResponseCode {
     SUCCESS(1, "SUCCESS"),
     ERROR(2, "ERROR"),
-    NEDD_LOGIN(10, "NEED_LOGIN");
+    NEED_LOGIN(10, "NEED_LOGIN");
 
     private final int code;
 

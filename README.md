@@ -20,6 +20,8 @@ _User Module_
 
 /user/getQuestionInformation        (_Get password question_)
 
+/user/upload.do                     (_Upload file_)
+
 
 _Information module_
 
