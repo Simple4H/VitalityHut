@@ -1,4 +1,4 @@
-# VitalityHut
+# Vitality Hut
 **元气小屋**
 ***`协作`***的功能
 
