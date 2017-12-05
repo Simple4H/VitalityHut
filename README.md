@@ -1,31 +1,31 @@
 # Vitality Hut
-**元气小屋**
+**Vitality Hut**
 
-主要有`协作`,`通知`的功能
-
-
-_用户模块_
-
-/user/login.do                      登录
-
-/user/get_user_info.do              获取用户信息
-
-/user/reset_password.do             登录状态下重置密码
-
-/user/update_information.do         更新个人信息
-
-/user/forget_check_answer.do        回答问题，获取Token
-
-/user/forget_reset_password.do      输入Token重置密码
+The main functional `collaboration`,`notification`
 
 
-_信息模块_
+_User Module_
 
-/message/create.do                  创建新的通知             
+/user/login.do                      _Login_
+
+/user/get_user_info.do              _Get user information_
+
+/user/reset_password.do             _Log in to reset the password_
+
+/user/update_information.do         _Update personal information_
+
+/user/forget_check_answer.do        _Answer the question and get Token_
+
+/user/forget_reset_password.do      _Enter Token to reset the password_
+
+
+_Information module_
+
+/message/create.do                  _Create a new notification_             
                                 
-/message/get_list.do                获取通知列表
+/message/get_list.do                _Get notification list_
 
-/message/delete_note.do             管理员删除通知
+/message/delete_note.do             _Administrator delete notification_
 
 
 
