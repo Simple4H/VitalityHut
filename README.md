@@ -18,6 +18,8 @@ _User Module_
 
 /user/forget_reset_password.do      (_Enter Token to reset the password_)
 
+/user/getQuestionInformation        (_Get password question_)
+
 
 _Information module_
 

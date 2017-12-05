@@ -85,4 +85,10 @@ public class UserController {
     public ServerResponse<String> forgetRestPassword(String username, String NewPassword, String forgetToken) {
         return iUserService.forgetResetPassword(username, NewPassword, forgetToken);
     }
+
+    @RequestMapping(value = "get_question_information.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<String> getQuestionInformation(String username) {
+        return iUserService.getQuestionInformation(username);
+    }
 }

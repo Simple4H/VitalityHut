@@ -31,4 +31,6 @@ public interface UserMapper {
     int checkEmail(String email);
 
     int checkAdmin(String username);
+
+    String getQuestion(String username);
 }
