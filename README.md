@@ -1,5 +1,5 @@
 # Vitality Hut
-###**Vitality Hut**
+### **Vitality Hut**
 
 The main functional `collaboration`,`notification`
 
