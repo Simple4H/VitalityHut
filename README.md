@@ -4,7 +4,7 @@
 The main functional `collaboration`,`notification`
 
 
-##User Modu
+## User Modu
 
 * /user/login.do                      (_Login_)<br/>
 
@@ -23,7 +23,7 @@ The main functional `collaboration`,`notification`
 * /user/upload.do                     (_Upload file_)<br/>
 
 
-##Information module
+## Information module
 
 * /message/create.do                  (_Create a new notification_ )<br/>         
                                 
