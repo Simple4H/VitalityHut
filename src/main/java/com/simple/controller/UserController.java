@@ -17,6 +17,7 @@ import javax.xml.crypto.Data;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Create by S I M P L E on 2017/12/02
@@ -84,30 +85,31 @@ public class UserController {
         return response;
     }
 
-//    //问题和答案
-//    // TODO: username
-//    @RequestMapping(value = "forget_check_answer.do", method = RequestMethod.POST)
-//    @ResponseBody
-//    public ServerResponse<String> forgetCheckAnswer(@RequestBody User user) {
-//        String username = user.getUsername();
-//        String question = user.getQuestion();
-//        String answer = user.getAnswer();
-//        return iUserService.checkAnswer(username, question, answer);
-//    }
-
     //问题和答案
-    // TODO: username
     @RequestMapping(value = "forget_check_answer.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> forgetCheckAnswer(String username,String question,String answer) {
+    public ServerResponse<String> forgetCheckAnswer(@RequestBody User user) {
+        String username = user.getUsername();
+        String question = user.getQuestion();
+        String answer = user.getAnswer();
         return iUserService.checkAnswer(username, question, answer);
     }
+
+//    //问题和答案
+//    @RequestMapping(value = "forget_check_answer.do", method = RequestMethod.POST)
+//    @ResponseBody
+//    public ServerResponse<String> forgetCheckAnswer(String username,String question,String answer) {
+//        return iUserService.checkAnswer(username, question, answer);
+//    }
 
 
     //忘记密码下重置密码
     @RequestMapping(value = "forget_reset_password.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> forgetRestPassword(String username, String newPassword, String token) {
+    public ServerResponse<String> forgetRestPassword(@RequestBody Map map) {
+        String username = (String) map.get("username");
+        String newPassword = (String) map.get("newPassword");
+        String token = (String) map.get("token");
         return iUserService.forgetResetPassword(username, newPassword, token);
     }
 
