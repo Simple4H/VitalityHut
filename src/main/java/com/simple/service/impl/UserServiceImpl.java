@@ -139,7 +139,7 @@ public class UserServiceImpl implements IUserService {
     public ServerResponse<String> getQuestionInformation(String username) {
         String result = userMapper.getQuestion(username);
         if (StringUtils.isBlank(result)) {
-            return ServerResponse.createByErrorMessage("用户名不存在");
+            return ServerResponse.createByErrorMessage("用户名不存在!");
         }
         return ServerResponse.createBySuccess("查询成功",result);
     }

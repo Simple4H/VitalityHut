@@ -2,6 +2,7 @@ package com.simple.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.simple.common.Const;
+import com.simple.common.ResponseCode;
 import com.simple.common.ServerResponse;
 import com.simple.dao.UserMapper;
 import com.simple.pojo.User;
@@ -30,6 +31,7 @@ public class MessageController {
     private UserMapper userMapper;
 
 
+    //创建通知
     @RequestMapping(value = "create.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse createNewNotice(String title, String message, HttpSession session) {
@@ -40,18 +42,20 @@ public class MessageController {
         return iMessageService.createNewNotice(title, message, currentUser.getUsername());
     }
 
+    //获取所有的通知
     @RequestMapping(value = "get_list.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<PageInfo> getList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
         return iMessageService.getMessageList(pageNum, pageSize);
     }
 
+    //删除通知
     @RequestMapping(value = "delete_note.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> deleteNote(String title, HttpSession session) {
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
-            return ServerResponse.createByErrorMessage("没有登录，无法删除");
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,需要登录");
         }
         int resultCount = userMapper.checkAdmin(currentUser.getUsername());
         System.out.println(resultCount);
@@ -60,4 +64,9 @@ public class MessageController {
         }
         return iMessageService.deleteNote(title);
     }
+
+    // TODO: 模糊查询
+
+
+
 }

@@ -4,7 +4,7 @@
 The main functional `collaboration`,`notification`
 
 
-## User Modu
+## User Module
 
 * /user/login.do                      (_Login_)<br/>
 
@@ -18,7 +18,7 @@ The main functional `collaboration`,`notification`
 
 * /user/forget_reset_password.do      (_Enter Token to reset the password_)<br/>
 
-* /user/getQuestionInformation        (_Get password question_)<br/>
+* /user/get_question_information.do   (_Get password question_)<br/>
 
 * /user/upload.do                     (_Upload file_)<br/>
 

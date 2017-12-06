@@ -26,6 +26,7 @@ public class UserController {
     @Autowired
     private IUserService iUserService;
 
+    //登录
     @RequestMapping(value = "login.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> login(@RequestBody User user, HttpSession session) {
@@ -38,6 +39,7 @@ public class UserController {
         return response;
     }
 
+    //获取用户信息
     @RequestMapping(value = "get_user_info.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> getUserInfo(HttpSession session) {
@@ -49,6 +51,7 @@ public class UserController {
         return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
     }
 
+    //登录状态修改密码
     @RequestMapping(value = "reset_password.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> resetPassword(HttpSession session, String newPassword, String oldPassword) {
@@ -59,6 +62,7 @@ public class UserController {
         return iUserService.resetPassword(newPassword, oldPassword, user);
     }
 
+    //更新用户信息
     @RequestMapping(value = "update_information.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> updateInformation(HttpSession session, User user) {
@@ -77,25 +81,35 @@ public class UserController {
         return response;
     }
 
+    //问题和答案
+    // TODO: username
     @RequestMapping(value = "forget_check_answer.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> forgetCheckAnswer(String username, String question, String answer) {
+    public ServerResponse<String> forgetCheckAnswer(@RequestBody User user) {
+        String username = user.getUsername();
+        String question = user.getQuestion();
+        String answer = user.getAnswer();
         return iUserService.checkAnswer(username, question, answer);
     }
 
 
+    //忘记密码下重置密码
     @RequestMapping(value = "forget_reset_password.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetRestPassword(String username, String NewPassword, String forgetToken) {
         return iUserService.forgetResetPassword(username, NewPassword, forgetToken);
     }
 
+    //获取问题
     @RequestMapping(value = "get_question_information.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> getQuestionInformation(String username) {
+    public ServerResponse<String> getQuestionInformation(@RequestBody User user) {
+        String username = user.getUsername();
+        System.out.println(username);
         return iUserService.getQuestionInformation(username);
     }
 
+    //上传文件
     @RequestMapping(value = "upload.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> upload(@RequestParam("upload_file") MultipartFile file) {
@@ -122,4 +136,5 @@ public class UserController {
             return ServerResponse.createByErrorMessage("失败上传 " + file.getOriginalFilename() + " 是空的");
         }
     }
+    // TODO: 不要添加@RequestParam
 }
