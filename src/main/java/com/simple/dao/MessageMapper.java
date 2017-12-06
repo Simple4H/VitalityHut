@@ -25,4 +25,6 @@ public interface MessageMapper {
     List<Message> finalAll();
 
     int deleteNote(String title);
+
+    List<Message> findBlur(String condition);
 }

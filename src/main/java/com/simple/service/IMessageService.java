@@ -16,4 +16,6 @@ public interface IMessageService {
 
     ServerResponse<String> deleteNote(String title);
 
+    ServerResponse<PageInfo> findBlur(String condition, int pageNum, int pageSize);
+
 }

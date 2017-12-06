@@ -65,8 +65,14 @@ public class MessageController {
         return iMessageService.deleteNote(title);
     }
 
-    // TODO: 模糊查询
-
-
-
+    //模糊查询
+    @RequestMapping(value = "find_blur.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<PageInfo> findBlur(String condition, HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+        if (currentUser == null) {
+            return ServerResponse.createByErrorMessage("没有登录,请登录");
+        }
+        return iMessageService.findBlur(condition, pageNum, pageSize);
+    }
 }

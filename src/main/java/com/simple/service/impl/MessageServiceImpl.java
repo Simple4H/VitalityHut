@@ -53,7 +53,16 @@ public class MessageServiceImpl implements IMessageService {
         return ServerResponse.createByErrorMessage("删除消息失败");
     }
 
+    public ServerResponse<PageInfo> findBlur(String condition, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Message> messageList = messageMapper.findBlur(condition);
+        PageInfo resultPage = new PageInfo(messageList);
+        if (resultPage == null) {
+            return ServerResponse.createByErrorMessage("没有找到相应的信息");
+        }
+        return ServerResponse.createBySuccess("查找到有关信息", resultPage);
 
+    }
 
 
 }

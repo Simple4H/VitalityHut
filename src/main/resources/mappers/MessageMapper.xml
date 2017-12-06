@@ -126,4 +126,12 @@
         DELETE FROM simple_message
         WHERE title = #{title}
     </delete>
+
+    <select id="findBlur" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM simple_message
+        WHERE
+        messges like concat(#{condition})
+    </select>
 </mapper>

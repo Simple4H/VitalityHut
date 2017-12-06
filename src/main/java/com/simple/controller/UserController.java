@@ -2,7 +2,6 @@ package com.simple.controller;
 
 import com.simple.common.Const;
 import com.simple.common.ServerResponse;
-import com.simple.pojo.Token;
 import com.simple.pojo.User;
 import com.simple.service.IUserService;
 import org.apache.commons.lang3.StringUtils;
@@ -11,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpSession;
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
