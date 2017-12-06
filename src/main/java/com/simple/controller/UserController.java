@@ -2,6 +2,7 @@ package com.simple.controller;
 
 import com.simple.common.Const;
 import com.simple.common.ServerResponse;
+import com.simple.pojo.Token;
 import com.simple.pojo.User;
 import com.simple.service.IUserService;
 import org.apache.commons.lang3.StringUtils;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpSession;
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -81,14 +84,22 @@ public class UserController {
         return response;
     }
 
+//    //问题和答案
+//    // TODO: username
+//    @RequestMapping(value = "forget_check_answer.do", method = RequestMethod.POST)
+//    @ResponseBody
+//    public ServerResponse<String> forgetCheckAnswer(@RequestBody User user) {
+//        String username = user.getUsername();
+//        String question = user.getQuestion();
+//        String answer = user.getAnswer();
+//        return iUserService.checkAnswer(username, question, answer);
+//    }
+
     //问题和答案
     // TODO: username
     @RequestMapping(value = "forget_check_answer.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> forgetCheckAnswer(@RequestBody User user) {
-        String username = user.getUsername();
-        String question = user.getQuestion();
-        String answer = user.getAnswer();
+    public ServerResponse<String> forgetCheckAnswer(String username,String question,String answer) {
         return iUserService.checkAnswer(username, question, answer);
     }
 
@@ -96,8 +107,8 @@ public class UserController {
     //忘记密码下重置密码
     @RequestMapping(value = "forget_reset_password.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> forgetRestPassword(String username, String NewPassword, String forgetToken) {
-        return iUserService.forgetResetPassword(username, NewPassword, forgetToken);
+    public ServerResponse<String> forgetRestPassword(String username, String newPassword, String token) {
+        return iUserService.forgetResetPassword(username, newPassword, token);
     }
 
     //获取问题

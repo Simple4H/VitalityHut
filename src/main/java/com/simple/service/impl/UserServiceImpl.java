@@ -111,7 +111,7 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("问题或答案错误");
     }
 
-    public ServerResponse<String> forgetResetPassword(String username, String NewPassword, String forgetToken) {
+    public ServerResponse<String> forgetResetPassword(String username, String newPassword, String forgetToken) {
         if (StringUtils.isBlank(forgetToken)) {
             return ServerResponse.createByErrorMessage("参数错误,token需要传递");
         }
@@ -126,7 +126,7 @@ public class UserServiceImpl implements IUserService {
         }
 
         if (StringUtils.equals(forgetToken, token)) {
-            int rowCount = userMapper.updatePasswordByUsername(username, NewPassword);
+            int rowCount = userMapper.updatePasswordByUsername(username, newPassword);
             if (rowCount > 0) {
                 return ServerResponse.createBySuccessMessage("修改密码成功");
             }
