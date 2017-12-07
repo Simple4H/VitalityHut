@@ -31,5 +31,7 @@ The main functional `collaboration`,`notification`
 
 * /message/delete_note.do             (_Administrator delete notification_)<br/>
 
+* /message/find_blur_message.do       (_Through the message fuzzy query_)<br/>
 
+* /message/find_blur_title.do         (_Through the title fuzzy query_)<br/>
 

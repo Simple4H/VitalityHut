@@ -66,7 +66,7 @@ public class MessageController {
         return iMessageService.deleteNote(title);
     }
 
-    //模糊查询
+    //通过信息模糊查询
     @RequestMapping(value = "find_blur_message.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<PageInfo> findBlurMessage(@RequestBody Map map, HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
@@ -78,6 +78,7 @@ public class MessageController {
         return iMessageService.findBlurMessage(messageCondition, pageNum, pageSize);
     }
 
+    //通过标题模糊查询
     @RequestMapping(value = "find_blur_title.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<PageInfo> findBlurTitle(@RequestBody Map map, HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
