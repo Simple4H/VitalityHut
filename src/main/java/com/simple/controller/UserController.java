@@ -55,7 +55,9 @@ public class UserController {
     //登录状态修改密码
     @RequestMapping(value = "reset_password.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> resetPassword(HttpSession session, String newPassword, String oldPassword) {
+    public ServerResponse<String> resetPassword(@RequestBody Map map, HttpSession session) {
+        String oldPassword = (String) map.get("oldPassword");
+        String newPassword = (String) map.get("newPassword");
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
             return ServerResponse.createByErrorMessage("用户未登陆");
@@ -66,7 +68,7 @@ public class UserController {
     //更新用户信息
     @RequestMapping(value = "update_information.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<User> updateInformation(HttpSession session, User user) {
+    public ServerResponse<User> updateInformation(@RequestBody User user, HttpSession session) {
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
             return ServerResponse.createByErrorMessage("用户未登录，无法更新信息");
@@ -91,14 +93,6 @@ public class UserController {
         String answer = user.getAnswer();
         return iUserService.checkAnswer(username, question, answer);
     }
-
-//    //问题和答案
-//    @RequestMapping(value = "forget_check_answer.do", method = RequestMethod.POST)
-//    @ResponseBody
-//    public ServerResponse<String> forgetCheckAnswer(String username,String question,String answer) {
-//        return iUserService.checkAnswer(username, question, answer);
-//    }
-
 
     //忘记密码下重置密码
     @RequestMapping(value = "forget_reset_password.do", method = RequestMethod.POST)
