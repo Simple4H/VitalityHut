@@ -1,3 +1,4 @@
+-- 作者author
 CREATE DATABASE `db_vitalityhut`;
 
 USE db_vitalityhut;
