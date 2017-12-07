@@ -67,13 +67,25 @@ public class MessageController {
     }
 
     //模糊查询
-    @RequestMapping(value = "find_blur.do", method = RequestMethod.POST)
+    @RequestMapping(value = "find_blur_message.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<PageInfo> findBlur(String condition, HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+    public ServerResponse<PageInfo> findBlurMessage(@RequestBody Map map, HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+        String messageCondition = (String) map.get("messageCondition");
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
             return ServerResponse.createByErrorMessage("没有登录,请登录");
         }
-        return iMessageService.findBlur(condition, pageNum, pageSize);
+        return iMessageService.findBlurMessage(messageCondition, pageNum, pageSize);
+    }
+
+    @RequestMapping(value = "find_blur_title.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<PageInfo> findBlurTitle(@RequestBody Map map, HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+        String titleCondition = (String) map.get("titleCondition");
+        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+        if (currentUser == null) {
+            return ServerResponse.createByErrorMessage("没有登录,请登录");
+        }
+        return iMessageService.findBlurTitle(titleCondition, pageNum, pageSize);
     }
 }

@@ -26,5 +26,7 @@ public interface MessageMapper {
 
     int deleteNote(String title);
 
-    List<Message> findBlur(String condition);
+    List<Message> findBlurMessage(String messageCondition);
+
+    List<Message> findBlurTitle(String titleCondition);
 }

@@ -140,5 +140,4 @@ public class UserController {
             return ServerResponse.createByErrorMessage("失败上传 " + file.getOriginalFilename() + " 是空的");
         }
     }
-    // TODO: 不要添加@RequestParam
 }

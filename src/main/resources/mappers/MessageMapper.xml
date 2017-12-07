@@ -127,11 +127,17 @@
         WHERE title = #{title}
     </delete>
 
-    <select id="findBlur" resultMap="BaseResultMap">
+    <select id="findBlurMessage" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM simple_message
-        WHERE
-        messges like concat(#{condition})
+        WHERE messges LIKE CONCAT('%',#{messageCondition},'%')
+    </select>
+
+    <select id="findBlurTitle" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM simple_message
+        WHERE title LIKE CONCAT('%',#{titleCondition},'%')
     </select>
 </mapper>
