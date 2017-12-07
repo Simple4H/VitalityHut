@@ -9,12 +9,10 @@ import com.simple.pojo.User;
 import com.simple.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 
 /**
@@ -34,7 +32,9 @@ public class MessageController {
     //创建通知
     @RequestMapping(value = "create.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse createNewNotice(String title, String message, HttpSession session) {
+    public ServerResponse createNewNotice(@RequestBody Map map, HttpSession session) {
+        String title = (String) map.get("title");
+        String message = (String) map.get("message");
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
             return ServerResponse.createByErrorMessage("没有登录，无法创建新的通知");
@@ -52,7 +52,8 @@ public class MessageController {
     //删除通知
     @RequestMapping(value = "delete_note.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> deleteNote(String title, HttpSession session) {
+    public ServerResponse<String> deleteNote(@RequestBody Map map, HttpSession session) {
+        String title = (String) map.get("title");
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,需要登录");
@@ -66,7 +67,7 @@ public class MessageController {
     }
 
     //模糊查询
-    @RequestMapping(value = "find_blur.do",method = RequestMethod.POST)
+    @RequestMapping(value = "find_blur.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<PageInfo> findBlur(String condition, HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
