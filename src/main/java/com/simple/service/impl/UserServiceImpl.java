@@ -47,7 +47,7 @@ public class UserServiceImpl implements IUserService {
         user.setPassword(newPassword);
         int updateCount = userMapper.updateByPrimaryKeySelective(user);
         if (updateCount > 0) {
-            return ServerResponse.createByErrorMessage("更新密码成功");
+            return ServerResponse.createBySuccessMessage("更新密码成功");
         }
         return ServerResponse.createByErrorMessage("更新密码错误");
     }
