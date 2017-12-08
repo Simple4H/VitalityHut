@@ -113,6 +113,14 @@ public class UserController {
         return iUserService.getQuestionInformation(username);
     }
 
+    //用户登出
+    @RequestMapping(value = "logout.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<String> logout(HttpSession session) {
+        session.removeAttribute(Const.CURRENT_USER);
+        return ServerResponse.createBySuccessMessage("登出成功");
+    }
+
     //上传文件
     @RequestMapping(value = "upload.do", method = RequestMethod.POST)
     @ResponseBody

@@ -22,6 +22,8 @@ The main functional `collaboration`,`notification`
 
 * /user/upload.do                     (_Upload file_)<br/>
 
+* /user/logout.do                     (_Logout user_)<br/>
+
 
 ## Information module
 
