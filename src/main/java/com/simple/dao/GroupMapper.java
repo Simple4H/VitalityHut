@@ -3,6 +3,8 @@ package com.simple.dao;
 import com.simple.pojo.Group;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface GroupMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -21,5 +23,7 @@ public interface GroupMapper {
     String getGroupUser();
 
     int joinGroup(@Param("updateUser")String updateUser,@Param("originalUser")String originalUser);
+
+    List checkUserExist(String username);
 
 }

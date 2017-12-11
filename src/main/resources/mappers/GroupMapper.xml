@@ -124,5 +124,12 @@
         WHERE member = #{originalUser}
     </update>
 
+    <select id="checkUserExist" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM simple_group
+        WHERE member LIKE CONCAT('%',#{username},'%')
+    </select>
+
 
 </mapper>

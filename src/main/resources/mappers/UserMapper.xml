@@ -205,7 +205,7 @@
         WHERE username = #{username}
     </select>
 
-    <select id="getQuestion" parameterType="string" resultType="string">
+    <select id="getQuestion" parameterType="string" resultType="java.lang.String">
         SELECT question
         FROM simple_user
         WHERE username = #{username}
