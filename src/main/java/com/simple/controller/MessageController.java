@@ -45,7 +45,10 @@ public class MessageController {
     //获取所有的通知
     @RequestMapping(value = "get_list.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<PageInfo> getList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+    public ServerResponse<PageInfo> getList(@RequestBody Map map) {
+        int pageNum = (Integer) map.get("pageNum");
+        int pageSize = (Integer) map.get("pageSize");
+
         return iMessageService.getMessageList(pageNum, pageSize);
     }
 
@@ -69,7 +72,9 @@ public class MessageController {
     //通过信息模糊查询
     @RequestMapping(value = "find_blur_message.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<PageInfo> findBlurMessage(@RequestBody Map map, HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+    public ServerResponse<PageInfo> findBlurMessage(@RequestBody Map map, HttpSession session) {
+        int pageNum = (Integer) map.get("pageNum");
+        int pageSize = (Integer) map.get("pageSize");
         String messageCondition = (String) map.get("messageCondition");
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
@@ -81,7 +86,9 @@ public class MessageController {
     //通过标题模糊查询
     @RequestMapping(value = "find_blur_title.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<PageInfo> findBlurTitle(@RequestBody Map map, HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+    public ServerResponse<PageInfo> findBlurTitle(@RequestBody Map map, HttpSession session) {
+        int pageNum = (Integer) map.get("pageNum");
+        int pageSize = (Integer) map.get("pageSize");
         String titleCondition = (String) map.get("titleCondition");
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
