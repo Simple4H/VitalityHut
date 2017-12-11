@@ -111,5 +111,18 @@
         VALUES (#{title}, #{message}, #{username}, now(), now())
     </insert>
 
+    <select id="getGroupUser" resultType="java.lang.String" parameterType="string">
+        SELECT member
+        FROM
+            simple_group
+
+    </select>
+
+    <update id="joinGroup" parameterType="map">
+        UPDATE simple_group
+        SET member = #{updateUser}
+        WHERE member = #{originalUser}
+    </update>
+
 
 </mapper>

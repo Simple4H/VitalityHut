@@ -39,4 +39,14 @@ public class GroupController {
         }
         return iGroupService.createGroup(title, message, user.getUsername());
     }
+
+    @RequestMapping(value = "join_group.do")
+    @ResponseBody
+    public ServerResponse<String> joinGroup(HttpSession session) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorMessage("请登录");
+        }
+        return iGroupService.joinGroup(user.getUsername());
+    }
 }

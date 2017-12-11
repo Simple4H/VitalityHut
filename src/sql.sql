@@ -1,6 +1,7 @@
 -- 作者author
 -- number
 -- default null
+-- member --> user
 CREATE DATABASE `db_vitalityhut`;
 
 USE db_vitalityhut;

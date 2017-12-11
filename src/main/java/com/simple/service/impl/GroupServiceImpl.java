@@ -23,5 +23,17 @@ public class GroupServiceImpl implements IGroupService {
         return ServerResponse.createByErrorMessage("新建小组失败");
     }
 
-
+    //加入小组
+    public ServerResponse<String> joinGroup(String username) {
+        String originalUser = groupMapper.getGroupUser();
+        if (originalUser == null) {
+            return ServerResponse.createByErrorMessage("查询失败");
+        }
+        String updateUser = originalUser + "," + username;
+        int result = groupMapper.joinGroup(updateUser, originalUser);
+        if (result != 0) {
+            return ServerResponse.createBySuccessMessage("加入成功");
+        }
+        return ServerResponse.createByErrorMessage("加入失败");
+    }
 }

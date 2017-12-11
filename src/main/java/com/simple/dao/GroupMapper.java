@@ -18,4 +18,8 @@ public interface GroupMapper {
 
     int createNewGroup(@Param("title")String title,@Param("message")String message,@Param("username")String username);
 
+    String getGroupUser();
+
+    int joinGroup(@Param("updateUser")String updateUser,@Param("originalUser")String originalUser);
+
 }
