@@ -9,5 +9,5 @@ public interface IGroupService {
 
     ServerResponse<String> createGroup(String title, String message, String username);
 
-    ServerResponse<String> joinGroup(String username);
+    ServerResponse<String> joinGroup(String username,String title);
 }

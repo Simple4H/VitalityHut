@@ -27,7 +27,12 @@ public class GroupServiceImpl implements IGroupService {
     }
 
     //加入小组
-    public ServerResponse<String> joinGroup(String username) {
+    public ServerResponse<String> joinGroup(String username, String title) {
+
+        int titleExist = groupMapper.checkGroupTile(title);
+        if (titleExist == 0) {
+            return ServerResponse.createByErrorMessage("小组不存在");
+        }
         //检验用户是不已经存在小组中
         List existUser = groupMapper.checkUserExist(username);
         if (existUser.size() != 0) {
@@ -43,7 +48,7 @@ public class GroupServiceImpl implements IGroupService {
         //重新插入数据表
         int result = groupMapper.joinGroup(updateUser, originalUser);
         if (result != 0) {
-            return ServerResponse.createBySuccessMessage("加入成功");
+            return ServerResponse.createBySuccess("加入成功", title);
         }
         return ServerResponse.createByErrorMessage("加入失败");
     }

@@ -26,4 +26,6 @@ public interface GroupMapper {
 
     List checkUserExist(String username);
 
+    int checkGroupTile(String title);
+
 }
