@@ -105,4 +105,11 @@
             update_time = #{updateTime,jdbcType=TIMESTAMP}
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
+
+    <insert id="createNewGroup" parameterType="map">
+        INSERT INTO simple_group (title, messges, member, create_time, update_time)
+        VALUES (#{title}, #{message}, #{username}, now(), now())
+    </insert>
+
+
 </mapper>
