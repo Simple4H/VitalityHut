@@ -2,6 +2,7 @@
 -- number
 -- default null
 -- member --> user
+-- messges -->message
 CREATE DATABASE `db_vitalityhut`;
 
 USE db_vitalityhut;
