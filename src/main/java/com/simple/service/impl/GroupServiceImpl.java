@@ -25,11 +25,14 @@ public class GroupServiceImpl implements IGroupService {
 
     //加入小组
     public ServerResponse<String> joinGroup(String username) {
+        //查询一开始的已经加入的小组成员
         String originalUser = groupMapper.getGroupUser();
         if (originalUser == null) {
             return ServerResponse.createByErrorMessage("查询失败");
         }
+        //添加成员到小组中,用","分隔开来
         String updateUser = originalUser + "," + username;
+        //重新插入数据表
         int result = groupMapper.joinGroup(updateUser, originalUser);
         if (result != 0) {
             return ServerResponse.createBySuccessMessage("加入成功");

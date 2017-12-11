@@ -26,6 +26,7 @@ public class GroupController {
     @Autowired
     private IGroupService iGroupService;
 
+    //管理院创建新的小组
     @RequestMapping(value = "create.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> createGroup(String title, String message, HttpSession session) {
@@ -40,6 +41,7 @@ public class GroupController {
         return iGroupService.createGroup(title, message, user.getUsername());
     }
 
+    //用户进入小组
     @RequestMapping(value = "join_group.do")
     @ResponseBody
     public ServerResponse<String> joinGroup(HttpSession session) {
