@@ -38,8 +38,8 @@ public class MessageServiceImpl implements IMessageService {
     public ServerResponse<PageInfo> getMessageList(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Message> messageList = messageMapper.finalAll();
-        PageInfo resultPage = new PageInfo(messageList);
-        if (resultPage == null) {
+        PageInfo<Message> resultPage = new PageInfo<>(messageList);
+        if (resultPage.getSize() == 0) {
             return ServerResponse.createByErrorMessage("查询失败");
         }
         return ServerResponse.createBySuccess("获取列表成功", resultPage);
@@ -56,7 +56,7 @@ public class MessageServiceImpl implements IMessageService {
     public ServerResponse<PageInfo> findBlurMessage(String messageCondition, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Message> messageList = messageMapper.findBlurMessage(messageCondition);
-        PageInfo resultPage = new PageInfo(messageList);
+        PageInfo<Message> resultPage = new PageInfo<>(messageList);
         if (resultPage.getSize() == 0) {
             return ServerResponse.createByErrorMessage("没有找到相应的信息");
         }
@@ -66,7 +66,7 @@ public class MessageServiceImpl implements IMessageService {
     public ServerResponse<PageInfo> findBlurTitle(String titleCondition, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Message> messageList = messageMapper.findBlurTitle(titleCondition);
-        PageInfo resultPage = new PageInfo(messageList);
+        PageInfo<Message> resultPage = new PageInfo<>(messageList);
         if (resultPage.getSize() == 0) {
             return ServerResponse.createByErrorMessage("没有找到相应的信息");
         }

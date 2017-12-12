@@ -1,5 +1,6 @@
 package com.simple.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.simple.common.Const;
 import com.simple.common.ServerResponse;
 import com.simple.dao.UserMapper;
@@ -7,11 +8,13 @@ import com.simple.pojo.User;
 import com.simple.service.IGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * Create by S I M P L E on 2017/12/11
@@ -29,7 +32,9 @@ public class GroupController {
     //管理院创建新的小组
     @RequestMapping(value = "create.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> createGroup(String title, String message, HttpSession session) {
+    public ServerResponse<String> createGroup(@RequestBody Map map, HttpSession session) {
+        String title = (String) map.get("title");
+        String message = (String) map.get("message");
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
             return ServerResponse.createByErrorMessage("请登录");
@@ -44,11 +49,25 @@ public class GroupController {
     //用户进入小组
     @RequestMapping(value = "join_group.do")
     @ResponseBody
-    public ServerResponse<String> joinGroup(String title,HttpSession session) {
+    public ServerResponse<String> joinGroup(@RequestBody Map map, HttpSession session) {
+        String title = (String) map.get("title");
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
             return ServerResponse.createByErrorMessage("请登录");
         }
-        return iGroupService.joinGroup(user.getUsername(),title);
+        return iGroupService.joinGroup(user.getUsername(), title);
+    }
+
+    //获取当前用户下所有的分组
+    @RequestMapping(value = "get_group_list.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<PageInfo> getGroupList(@RequestBody Map map, HttpSession session) {
+        int pageNum = (Integer) map.get("pageNum");
+        int pageSize = (Integer) map.get("pageSize");
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorMessage("请登录");
+        }
+        return iGroupService.getGroupList(user.getUsername(), pageSize, pageNum);
     }
 }

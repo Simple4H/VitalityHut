@@ -1,5 +1,7 @@
 package com.simple.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.simple.common.ServerResponse;
 import com.simple.dao.GroupMapper;
 import com.simple.pojo.Group;
@@ -29,7 +31,7 @@ public class GroupServiceImpl implements IGroupService {
     //加入小组
     public ServerResponse<String> joinGroup(String username, String title) {
 
-        int titleExist = groupMapper.checkGroupTile(title);
+        int titleExist = groupMapper.checkGroupTitle(title);
         if (titleExist == 0) {
             return ServerResponse.createByErrorMessage("小组不存在");
         }
@@ -52,4 +54,15 @@ public class GroupServiceImpl implements IGroupService {
         }
         return ServerResponse.createByErrorMessage("加入失败");
     }
+
+    public ServerResponse<PageInfo> getGroupList(String username, int pageSize, int pageNum) {
+        PageHelper.startPage(pageSize, pageNum);
+        List<Group> groupList = groupMapper.getGroupList(username);
+        PageInfo<Group> resultPage = new PageInfo<>(groupList);
+        if (resultPage.getSize() == 0) {
+            return ServerResponse.createByErrorMessage("没有找到小组");
+        }
+        return ServerResponse.createBySuccess("找到小组", resultPage);
+    }
 }
+

@@ -131,11 +131,16 @@
         WHERE member LIKE CONCAT('%',#{username},'%')
     </select>
 
-    <select id="checkGroupTile" parameterType="string" resultType="java.lang.Integer">
+    <select id="checkGroupTitle" parameterType="string" resultType="java.lang.Integer">
         SELECT count(1)
         FROM simple_group
         WHERE title = #{title}
     </select>
 
-
+    <select id="getGroupList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM simple_group
+        WHERE member LIKE CONCAT('%',#{username},'%')
+    </select>
 </mapper>
