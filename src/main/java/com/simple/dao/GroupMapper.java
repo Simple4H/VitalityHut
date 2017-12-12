@@ -30,4 +30,8 @@ public interface GroupMapper {
 
     int checkGroupTile(String title);
 
+    List<Group> getGroupList();
+
+    List<Group> getGroupListByUser(String username);
+
 }

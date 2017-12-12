@@ -147,5 +147,17 @@
         WHERE title = #{title}
     </select>
 
+    <select id="getGroupList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from simple_group
+    </select>
+
+    <select id="getGroupListByUser" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM simple_group WHERE member LIKE concat('%',#{username},'%')
+    </select>
+
 
 </mapper>

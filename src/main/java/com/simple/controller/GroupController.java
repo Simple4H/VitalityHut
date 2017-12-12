@@ -1,5 +1,6 @@
 package com.simple.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.simple.common.Const;
 import com.simple.common.ServerResponse;
 import com.simple.dao.UserMapper;
@@ -46,7 +47,7 @@ public class GroupController {
     }
 
     //用户进入小组
-    @RequestMapping(value = "join_group.do")
+    @RequestMapping(value = "join_group.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> joinGroup(@RequestBody Map map, HttpSession session) {
         String title = (String) map.get("title");
@@ -55,5 +56,30 @@ public class GroupController {
             return ServerResponse.createByErrorMessage("请登录");
         }
         return iGroupService.joinGroup(user.getUsername(), title);
+    }
+
+    //获取小组的列表
+    @RequestMapping(value = "get_group_list.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<PageInfo> getGroupList(@RequestBody Map map, HttpSession session) {
+        int pageNum = (int) map.get("pageNum");
+        int pageSize = (int) map.get("pageSize");
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorMessage("请登录");
+        }
+        return iGroupService.getGroupList(pageNum, pageSize);
+    }
+
+    @RequestMapping(value = "get_group_list_by_user.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<PageInfo> getGroupListByUser(@RequestBody Map map, HttpSession session) {
+        int pageNum = (int) map.get("pageNum");
+        int pageSize = (int) map.get("pageSize");
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorMessage("请登录");
+        }
+        return iGroupService.getGroupListByUser(user.getUsername(), pageNum, pageSize);
     }
 }

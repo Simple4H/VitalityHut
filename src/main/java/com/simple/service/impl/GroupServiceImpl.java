@@ -1,7 +1,10 @@
 package com.simple.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.simple.common.ServerResponse;
 import com.simple.dao.GroupMapper;
+import com.simple.pojo.Group;
 import com.simple.service.IGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +42,7 @@ public class GroupServiceImpl implements IGroupService {
         }
         //检验用户是不已经存在小组中
         // TODO: 单条信息
-        List existUser = groupMapper.checkUserExist(title,username);
+        List existUser = groupMapper.checkUserExist(title, username);
         if (existUser.size() > 0) {
             return ServerResponse.createByErrorMessage("用户已经在小组中");
         }
@@ -56,5 +59,25 @@ public class GroupServiceImpl implements IGroupService {
             return ServerResponse.createBySuccess("加入成功", title);
         }
         return ServerResponse.createByErrorMessage("加入失败");
+    }
+
+    public ServerResponse<PageInfo> getGroupList(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Group> groupList = groupMapper.getGroupList();
+        PageInfo<Group> resultPage = new PageInfo<>(groupList);
+        if (resultPage.getSize() > 0) {
+            return ServerResponse.createBySuccess("查询成功", resultPage);
+        }
+        return ServerResponse.createByErrorMessage("没有查询到任何消息");
+    }
+
+    public ServerResponse<PageInfo> getGroupListByUser(String username, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Group> groupList = groupMapper.getGroupListByUser(username);
+        PageInfo<Group> resultPage = new PageInfo<>(groupList);
+        if (resultPage.getSize() > 0) {
+            return ServerResponse.createBySuccess("查询成功",resultPage);
+        }
+        return ServerResponse.createByErrorMessage("没有查询到任何信息");
     }
 }
