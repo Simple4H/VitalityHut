@@ -37,3 +37,14 @@ The main functional `collaboration`,`notification`
 
 * /message/find_blur_title.do         (_Through the title fuzzy query_)<br/>
 
+## Group module
+
+* /group/create.do                    (_Create a new group_ )<br/>
+
+* /get_group_list.do                  (_Get group list_)
+
+* /group/join_group.do                (_Join a group_)    
+
+
+
+
