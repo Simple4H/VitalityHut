@@ -18,8 +18,12 @@ public class GroupServiceImpl implements IGroupService {
     private GroupMapper groupMapper;
 
     public ServerResponse<String> createGroup(String title, String message, String username) {
-
-        // TODO: 小组名字重复
+        //检验小组名字是否存在
+        List resultTitle = groupMapper.checkTitleExist(title);
+        if (resultTitle.size() > 0) {
+            return ServerResponse.createByErrorMessage("小组名已经存在");
+        }
+        //创建新的小组
         int result = groupMapper.createNewGroup(title, message, username);
         if (result > 0) {
             return ServerResponse.createBySuccessMessage("新建小组成功");
@@ -29,20 +33,18 @@ public class GroupServiceImpl implements IGroupService {
 
     //加入小组
     public ServerResponse<String> joinGroup(String username, String title) {
-
-
         int titleExist = groupMapper.checkGroupTile(title);
         if (titleExist == 0) {
             return ServerResponse.createByErrorMessage("小组不存在");
         }
         //检验用户是不已经存在小组中
         // TODO: 单条信息
-        List existUser = groupMapper.checkUserExist(username);
+        List existUser = groupMapper.checkUserExist(title,username);
         if (existUser.size() > 0) {
             return ServerResponse.createByErrorMessage("用户已经在小组中");
         }
         //查询一开始的已经加入的小组成员
-        String originalUser = groupMapper.getGroupUser();
+        String originalUser = groupMapper.getGroupUser(title);
         if (originalUser == null) {
             return ServerResponse.createByErrorMessage("查询失败");
         }

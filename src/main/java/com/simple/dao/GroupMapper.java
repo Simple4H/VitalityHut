@@ -18,13 +18,15 @@ public interface GroupMapper {
 
     int updateByPrimaryKey(Group record);
 
-    int createNewGroup(@Param("title")String title,@Param("message")String message,@Param("username")String username);
+    List checkTitleExist(String title);
 
-    String getGroupUser();
+    int createNewGroup(@Param("title") String title, @Param("message") String message, @Param("username") String username);
 
-    int joinGroup(@Param("updateUser")String updateUser,@Param("originalUser")String originalUser);
+    String getGroupUser(String title);
 
-    List checkUserExist(String username);
+    int joinGroup(@Param("updateUser") String updateUser, @Param("originalUser") String originalUser);
+
+    List checkUserExist(@Param("title") String title, @Param("username") String username);
 
     int checkGroupTile(String title);
 

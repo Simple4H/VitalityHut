@@ -99,12 +99,19 @@
     <update id="updateByPrimaryKey" parameterType="com.simple.pojo.Group">
         UPDATE simple_group
         SET title       = #{title,jdbcType=VARCHAR},
-        messges     = #{messges,jdbcType=VARCHAR},
-        member      = #{member,jdbcType=VARCHAR},
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-        update_time = #{updateTime,jdbcType=TIMESTAMP}
+            messges     = #{messges,jdbcType=VARCHAR},
+            member      = #{member,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_time = #{updateTime,jdbcType=TIMESTAMP}
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
+
+    <select id="checkTitleExist" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM simple_group
+        WHERE title LIKE CONCAT('%',#{title},'%')
+    </select>
 
     <insert id="createNewGroup" parameterType="map">
         INSERT INTO simple_group (title, messges, member, create_time, update_time)
@@ -115,7 +122,9 @@
         SELECT member
         FROM
             simple_group
-
+        WHERE title IN (SELECT title
+                        FROM simple_group
+                        WHERE title = #{title})
     </select>
 
     <update id="joinGroup" parameterType="map">
@@ -128,7 +137,8 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM simple_group
-        WHERE member LIKE CONCAT('%',#{username},'%')
+        WHERE title in (SELECT title from simple_group where title = #{title}) and member LIKE
+        CONCAT('%',#{username},'%')
     </select>
 
     <select id="checkGroupTile" parameterType="string" resultType="java.lang.Integer">
