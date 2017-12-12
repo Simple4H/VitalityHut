@@ -48,7 +48,7 @@ public class MessageServiceImpl implements IMessageService {
     public ServerResponse<String> deleteNote(String title) {
         int deleteCount = messageMapper.deleteNote(title);
         if (deleteCount > 0) {
-            return ServerResponse.createBySuccess("删除消息成功");
+            return ServerResponse.createBySuccessMessage("删除消息成功");
         }
         return ServerResponse.createByErrorMessage("删除消息失败");
     }

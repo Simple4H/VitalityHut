@@ -1,10 +1,7 @@
 package com.simple.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.simple.common.ServerResponse;
 import com.simple.dao.GroupMapper;
-import com.simple.pojo.Group;
 import com.simple.service.IGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +18,8 @@ public class GroupServiceImpl implements IGroupService {
     private GroupMapper groupMapper;
 
     public ServerResponse<String> createGroup(String title, String message, String username) {
+
+        // TODO: 小组名字重复
         int result = groupMapper.createNewGroup(title, message, username);
         if (result > 0) {
             return ServerResponse.createBySuccessMessage("新建小组成功");
@@ -31,13 +30,15 @@ public class GroupServiceImpl implements IGroupService {
     //加入小组
     public ServerResponse<String> joinGroup(String username, String title) {
 
-        int titleExist = groupMapper.checkGroupTitle(title);
+
+        int titleExist = groupMapper.checkGroupTile(title);
         if (titleExist == 0) {
             return ServerResponse.createByErrorMessage("小组不存在");
         }
         //检验用户是不已经存在小组中
+        // TODO: 单条信息
         List existUser = groupMapper.checkUserExist(username);
-        if (existUser.size() != 0) {
+        if (existUser.size() > 0) {
             return ServerResponse.createByErrorMessage("用户已经在小组中");
         }
         //查询一开始的已经加入的小组成员
@@ -54,15 +55,4 @@ public class GroupServiceImpl implements IGroupService {
         }
         return ServerResponse.createByErrorMessage("加入失败");
     }
-
-    public ServerResponse<PageInfo> getGroupList(String username, int pageSize, int pageNum) {
-        PageHelper.startPage(pageSize, pageNum);
-        List<Group> groupList = groupMapper.getGroupList(username);
-        PageInfo<Group> resultPage = new PageInfo<>(groupList);
-        if (resultPage.getSize() == 0) {
-            return ServerResponse.createByErrorMessage("没有找到小组");
-        }
-        return ServerResponse.createBySuccess("找到小组", resultPage);
-    }
 }
-

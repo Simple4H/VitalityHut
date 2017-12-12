@@ -1,6 +1,5 @@
 package com.simple.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.simple.common.Const;
 import com.simple.common.ServerResponse;
 import com.simple.dao.UserMapper;
@@ -56,18 +55,5 @@ public class GroupController {
             return ServerResponse.createByErrorMessage("请登录");
         }
         return iGroupService.joinGroup(user.getUsername(), title);
-    }
-
-    //获取当前用户下所有的分组
-    @RequestMapping(value = "get_group_list.do", method = RequestMethod.POST)
-    @ResponseBody
-    public ServerResponse<PageInfo> getGroupList(@RequestBody Map map, HttpSession session) {
-        int pageNum = (Integer) map.get("pageNum");
-        int pageSize = (Integer) map.get("pageSize");
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.createByErrorMessage("请登录");
-        }
-        return iGroupService.getGroupList(user.getUsername(), pageSize, pageNum);
     }
 }
