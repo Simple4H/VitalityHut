@@ -71,6 +71,7 @@ public class GroupController {
         return iGroupService.getGroupList(pageNum, pageSize);
     }
 
+    //获取当前用户已经加入小组的列表
     @RequestMapping(value = "get_group_list_by_user.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<PageInfo> getGroupListByUser(@RequestBody Map map, HttpSession session) {

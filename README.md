@@ -45,6 +45,8 @@ The main functional `collaboration`,`notification`
 
 * /group/join_group.do                (_Join a group_)    
 
+* /get_group_list_by_user.do          (_Select from list by user_)
+
 
 
 
