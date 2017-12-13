@@ -34,4 +34,8 @@ public interface GroupMapper {
 
     List<Group> getGroupListByUser(String username);
 
+    List<Group> findBlurMessage(String messageCondition);
+
+    List<Group> findBlurTitle(String titleCondition);
+
 }

@@ -72,7 +72,7 @@ public class GroupController {
     }
 
     //获取当前用户已经加入小组的列表
-    @RequestMapping(value = "get_group_list_by_user.do",method = RequestMethod.POST)
+    @RequestMapping(value = "get_group_list_by_user.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<PageInfo> getGroupListByUser(@RequestBody Map map, HttpSession session) {
         int pageNum = (int) map.get("pageNum");
@@ -82,5 +82,33 @@ public class GroupController {
             return ServerResponse.createByErrorMessage("请登录");
         }
         return iGroupService.getGroupListByUser(user.getUsername(), pageNum, pageSize);
+    }
+
+    //通过信息模糊查询
+    @RequestMapping(value = "find_blur_message.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<PageInfo> findBlurMessage(@RequestBody Map map, HttpSession session) {
+        int pageNum = (Integer) map.get("pageNum");
+        int pageSize = (Integer) map.get("pageSize");
+        String messageCondition = (String) map.get("messageCondition");
+        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+        if (currentUser == null) {
+            return ServerResponse.createByErrorMessage("没有登录,请登录");
+        }
+        return iGroupService.findBlurMessage(messageCondition, pageNum, pageSize);
+    }
+
+    //通过标题模糊查询
+    @RequestMapping(value = "find_blur_title.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<PageInfo> findBlurTitle(@RequestBody Map map, HttpSession session) {
+        int pageNum = (Integer) map.get("pageNum");
+        int pageSize = (Integer) map.get("pageSize");
+        String titleCondition = (String) map.get("titleCondition");
+        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+        if (currentUser == null) {
+            return ServerResponse.createByErrorMessage("没有登录,请登录");
+        }
+        return iGroupService.findBlurTitle(titleCondition, pageNum, pageSize);
     }
 }

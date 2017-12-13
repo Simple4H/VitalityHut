@@ -15,4 +15,8 @@ public interface IGroupService {
     ServerResponse<PageInfo> getGroupList(int pageNum, int pageSize);
 
     ServerResponse<PageInfo> getGroupListByUser(String username, int pageNum, int pageSize);
+
+    ServerResponse<PageInfo> findBlurMessage(String messageCondition, int pageNum, int pageSize);
+
+    ServerResponse<PageInfo> findBlurTitle(String titleCondition, int pageNum, int pageSize);
 }

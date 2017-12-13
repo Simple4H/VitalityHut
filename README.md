@@ -41,11 +41,15 @@ The main functional `collaboration`,`notification`
 
 * /group/create.do                    (_Create a new group_ )<br/>
 
-* /get_group_list.do                  (_Get group list_)
+* /group//get_group_list.do           (_Get group list_)
 
 * /group/join_group.do                (_Join a group_)    
 
-* /get_group_list_by_user.do          (_Select from list by user_)
+* /group/get_group_list_by_user.do    (_Select from list by user_)
+
+* /group/find_blur_message.do         (_Through the message fuzzy query_)<br/>
+
+* /group/find_blur_title.do           (_Through the title fuzzy query_)<br/>
 
 
 

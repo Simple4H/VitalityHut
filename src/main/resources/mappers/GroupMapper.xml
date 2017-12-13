@@ -159,5 +159,19 @@
         FROM simple_group WHERE member LIKE concat('%',#{username},'%')
     </select>
 
+    <select id="findBlurMessage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM simple_group
+        WHERE messges LIKE CONCAT('%',#{messageCondition},'%')
+    </select>
+
+    <select id="findBlurTitle" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM simple_group
+        WHERE title LIKE CONCAT('%',#{titleCondition},'%')
+    </select>
+
 
 </mapper>

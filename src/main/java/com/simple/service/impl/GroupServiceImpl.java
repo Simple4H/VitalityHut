@@ -80,4 +80,24 @@ public class GroupServiceImpl implements IGroupService {
         }
         return ServerResponse.createByErrorMessage("没有查询到任何信息");
     }
+
+    public ServerResponse<PageInfo> findBlurMessage(String messageCondition, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Group> groupList = groupMapper.findBlurMessage(messageCondition);
+        PageInfo<Group> resultPage = new PageInfo<>(groupList);
+        if (resultPage.getSize() == 0) {
+            return ServerResponse.createByErrorMessage("没有找到相应的信息");
+        }
+        return ServerResponse.createBySuccess("查找到有关信息", resultPage);
+    }
+
+    public ServerResponse<PageInfo> findBlurTitle(String titleCondition, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Group> groupList = groupMapper.findBlurTitle(titleCondition);
+        PageInfo<Group> resultPage = new PageInfo<>(groupList);
+        if (resultPage.getSize() == 0) {
+            return ServerResponse.createByErrorMessage("没有找到相应的信息");
+        }
+        return ServerResponse.createBySuccess("查找到有关信息", resultPage);
+    }
 }
