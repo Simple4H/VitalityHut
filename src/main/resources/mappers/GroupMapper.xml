@@ -173,5 +173,11 @@
         WHERE title LIKE CONCAT('%',#{titleCondition},'%')
     </select>
 
+    <select id="getCurrentGroupMessage" resultType="com.simple.pojo.Group" parameterType="string">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM simple_group WHERE title = #{title}
+    </select>
+
 
 </mapper>

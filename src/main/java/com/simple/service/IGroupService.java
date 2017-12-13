@@ -2,6 +2,7 @@ package com.simple.service;
 
 import com.github.pagehelper.PageInfo;
 import com.simple.common.ServerResponse;
+import com.simple.pojo.Group;
 
 /**
  * Create by S I M P L E on 2017/12/11
@@ -19,4 +20,6 @@ public interface IGroupService {
     ServerResponse<PageInfo> findBlurMessage(String messageCondition, int pageNum, int pageSize);
 
     ServerResponse<PageInfo> findBlurTitle(String titleCondition, int pageNum, int pageSize);
+
+    ServerResponse<Group> getCurrentGroupMessage(String title);
 }

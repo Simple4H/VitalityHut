@@ -76,7 +76,7 @@ public class GroupServiceImpl implements IGroupService {
         List<Group> groupList = groupMapper.getGroupListByUser(username);
         PageInfo<Group> resultPage = new PageInfo<>(groupList);
         if (resultPage.getSize() > 0) {
-            return ServerResponse.createBySuccess("查询成功",resultPage);
+            return ServerResponse.createBySuccess("查询成功", resultPage);
         }
         return ServerResponse.createByErrorMessage("没有查询到任何信息");
     }
@@ -99,5 +99,13 @@ public class GroupServiceImpl implements IGroupService {
             return ServerResponse.createByErrorMessage("没有找到相应的信息");
         }
         return ServerResponse.createBySuccess("查找到有关信息", resultPage);
+    }
+
+    public ServerResponse<Group> getCurrentGroupMessage(String title) {
+        Group group = groupMapper.getCurrentGroupMessage(title);
+        if (group == null) {
+            return ServerResponse.createByErrorMessage("获取小组信息失败啊");
+        }
+        return ServerResponse.createBySuccess("获取小组信息成功", group);
     }
 }

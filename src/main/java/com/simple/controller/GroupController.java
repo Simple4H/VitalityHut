@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.simple.common.Const;
 import com.simple.common.ServerResponse;
 import com.simple.dao.UserMapper;
+import com.simple.pojo.Group;
 import com.simple.pojo.User;
 import com.simple.service.IGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,5 +111,17 @@ public class GroupController {
             return ServerResponse.createByErrorMessage("没有登录,请登录");
         }
         return iGroupService.findBlurTitle(titleCondition, pageNum, pageSize);
+    }
+
+    //获取加入小组的信息
+    @RequestMapping(value = "get_current_group_message.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<Group> getCurrentGroupMessage(@RequestBody Map map, HttpSession session) {
+        String title = (String) map.get("title");
+        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+        if (currentUser == null) {
+            return ServerResponse.createByErrorMessage("没有登录,请登录");
+        }
+        return iGroupService.getCurrentGroupMessage(title);
     }
 }

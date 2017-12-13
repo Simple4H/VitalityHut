@@ -38,4 +38,6 @@ public interface GroupMapper {
 
     List<Group> findBlurTitle(String titleCondition);
 
+    Group getCurrentGroupMessage(String title);
+
 }
