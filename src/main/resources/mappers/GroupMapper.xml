@@ -130,7 +130,7 @@
     <update id="joinGroup" parameterType="map">
         UPDATE simple_group
         SET member = #{updateUser}
-        WHERE member = #{originalUser}
+        WHERE title = #{title} AND member = #{originalUser}
     </update>
 
     <select id="checkUserExist" resultMap="BaseResultMap">

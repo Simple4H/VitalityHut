@@ -24,7 +24,7 @@ public interface GroupMapper {
 
     String getGroupUser(String title);
 
-    int joinGroup(@Param("updateUser") String updateUser, @Param("originalUser") String originalUser);
+    int joinGroup(@Param("updateUser") String updateUser, @Param("originalUser") String originalUser,@Param("title")String title);
 
     List checkUserExist(@Param("title") String title, @Param("username") String username);
 

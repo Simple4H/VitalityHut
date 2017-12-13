@@ -54,7 +54,7 @@ public class GroupServiceImpl implements IGroupService {
         //添加成员到小组中,用","分隔开来
         String updateUser = originalUser + "," + username;
         //重新插入数据表
-        int result = groupMapper.joinGroup(updateUser, originalUser);
+        int result = groupMapper.joinGroup(updateUser, originalUser, title);
         if (result != 0) {
             return ServerResponse.createBySuccess("加入成功", title);
         }
