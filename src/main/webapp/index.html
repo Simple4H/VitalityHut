@@ -1,15 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset=utf-8>
-    <meta name=viewport content="width=device-width,initial-scale=1">
-    <title>元气小屋</title>
-    <link href=/static/css/app.e61c73b02257cf5d593589044df4df12.css rel=stylesheet>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="common/js/jquery-3.2.1.min.js"></script>
+    <script>
+        function requestJson() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var data = JSON.stringify({"username":username,"password":password});
+            $.ajax({
+                type        : 'post',
+                url         : 'http://localhost:8080/user/login.do',
+                contentType : 'application/json;charset=utf-8',
+                dataType    : 'json',
+                data        :  data,
+                success: function (data) {
+                    console.log(data.valueOf());
+                    if (data.valueOf().status === 1){
+                        window.location.href="text.html";
+                    }
+                    else {
+                        alert(data.valueOf().msg);
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 <body>
-<div id=app></div>
-<script type=text/javascript src=/static/js/manifest.d2c0332b6dd0f49f8524.js></script>
-<script type=text/javascript src=/static/js/vendor.f79dc0d13663b9a57646.js></script>
-<script type=text/javascript src=/static/js/app.0946c00a666d5c2d2935.js></script>
+    <input type="text" id="username" name="username">
+    <input type="password" id="password" name="password">
+    <button onclick="requestJson()">发送Json请求</button>
+<br/>
 </body>
 </html>
