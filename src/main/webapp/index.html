@@ -8,17 +8,17 @@
         function requestJson() {
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
-            var data = JSON.stringify({"username":username,"password":password});
+            var data = JSON.stringify({"username": username, "password": password});
             $.ajax({
-                type        : 'post',
-                url         : 'http://localhost:8080/user/login.do',
-                contentType : 'application/json;charset=utf-8',
-                dataType    : 'json',
-                data        :  data,
+                type: 'post',
+                url: 'http://localhost:8080/user/login.do',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                data: data,
                 success: function (data) {
                     console.log(data.valueOf());
-                    if (data.valueOf().status === 1){
-                        window.location.href="text.html";
+                    if (data.valueOf().status === 1) {
+                        window.location.href = "text.html";
                     }
                     else {
                         alert(data.valueOf().msg);
@@ -29,9 +29,9 @@
     </script>
 </head>
 <body>
-    <input type="text" id="username" name="username">
-    <input type="password" id="password" name="password">
-    <button onclick="requestJson()">发送Json请求</button>
+<label for="username"></label><input type="text" id="username" name="username">
+<label for="password"></label><input type="password" id="password" name="password">
+<button onclick="requestJson()">发送Json请求</button>
 <br/>
 </body>
 </html>
