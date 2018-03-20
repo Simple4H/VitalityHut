@@ -10,20 +10,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user/springsession/")
 public class UserSpringSessionController {
 
+    private final IUserService iUserService;
+
     @Autowired
-    private IUserService iUserService;
+    public UserSpringSessionController(IUserService iUserService) {
+        this.iUserService = iUserService;
+    }
 
     @RequestMapping(value = "login.do", method = RequestMethod.GET)
     @ResponseBody()
-    public ServerResponse<User> login(String username, String password, HttpSession session, HttpServletResponse httpServletResponse) {
+    public ServerResponse<User> login(String username, String password, HttpSession session) {
         ServerResponse<User> response = iUserService.login(username, password);
         if (response.isSuccess()) {
             session.setAttribute(Const.CURRENT_USER, response.getData());
@@ -40,7 +42,7 @@ public class UserSpringSessionController {
 
     @RequestMapping(value = "get_user_info.do", method = RequestMethod.GET)
     @ResponseBody
-    public ServerResponse<User> getUserInfo(HttpSession session,HttpServletRequest  httpServletRequest) {
+    public ServerResponse<User> getUserInfo(HttpSession session) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user != null) {
             return ServerResponse.createBySuccess(user);

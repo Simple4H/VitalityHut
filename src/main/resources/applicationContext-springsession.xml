@@ -25,7 +25,7 @@
         <property name="useHttpOnlyCookie" value="true"/>
         <property name="cookiePath" value="/"/>
         <!--浏览器cookie有效值为1年-->
-        <property name="cookieMaxAge" value="31536000"/>
+        <property name="cookieMaxAge" value="604800"/>
     </bean>
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
