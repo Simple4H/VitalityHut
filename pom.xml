@@ -111,7 +111,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.6</version>
+            <version>5.1.38</version>
         </dependency>
 
         <dependency>
@@ -294,9 +294,6 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
-                    <compilerArguments>
-                        <extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>
-                    </compilerArguments>
                 </configuration>
             </plugin>
         </plugins>
