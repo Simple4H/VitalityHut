@@ -90,8 +90,6 @@ INSERT into simple_message VALUES (NULL ,'叶树梁','兄弟,我是无敌的','s
 INSERT into simple_message VALUES (NULL ,'你好','啊啊实打实的','simple','2017-12-13 21:54:00','2017-12-13 21:54:00');
 INSERT into simple_message VALUES (NULL ,'啊实打实大苏打撒','现场捐款v赫鲁晓夫尽快v和','simple','2017-12-13 21:54:00','2017-12-13 21:54:00');
 INSERT into simple_message VALUES (NULL ,'把这个vi涉猎广泛','ekjhagfbvkjs.dBFVJKL>SDBugfk ','simple','2017-12-13 21:54:00','2017-12-13 21:54:00');
-INSERT into simple_message VALUES (NULL ,'abc','16854165xdfvsrfv','simple','2017-12-13 21:54:00','2017-12-13 21:54:00');
-INSERT into simple_message VALUES (NULL ,'a12324e124c','ZDvsdfSAE','simple','2017-12-13 21:54:00','2017-12-13 21:54:00');
 
 
 
