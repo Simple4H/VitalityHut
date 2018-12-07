@@ -24,11 +24,15 @@ import java.util.Map;
 @Controller
 public class GroupController {
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
+
+    private final IGroupService iGroupService;
 
     @Autowired
-    private IGroupService iGroupService;
+    public GroupController(UserMapper userMapper, IGroupService iGroupService) {
+        this.userMapper = userMapper;
+        this.iGroupService = iGroupService;
+    }
 
     //管理院创建新的小组
     @RequestMapping(value = "create.do", method = RequestMethod.POST)
